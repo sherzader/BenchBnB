@@ -26501,13 +26501,16 @@
 	    this.setState({ benches: BenchStore.all() });
 
 	    this.state.benches.forEach(function (bench) {
-	      debugger;
 	      var myLatlng = new google.maps.LatLng(bench.lat, bench.lng);
 	      var marker = new google.maps.Marker({
 	        position: myLatlng,
 	        title: 'Bench BnB!'
 	      });
 	      marker.setMap(that.map);
+	      marker.addListener('click', function () {
+	        that.map.setZoom(15);
+	        that.map.setCenter(marker.getPosition());
+	      });
 	    });
 	  },
 	  componentDidMount: function () {
