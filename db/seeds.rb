@@ -5,3 +5,9 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+benches = Bench.create([{
+                description: "COZYAZFUQ",
+                lat: 37.7804335,
+                lng: -122.4116771
+                }])
