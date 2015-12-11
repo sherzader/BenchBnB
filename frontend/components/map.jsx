@@ -22,6 +22,13 @@ var Map = React.createClass({
         that.map.setZoom(15);
         that.map.setCenter(marker.getPosition());
       });
+      var infowindow = new google.maps.InfoWindow({
+        content: "ELLO DER, CARE TO VISIT"
+      });
+
+      marker.addListener('click', function() {
+        infowindow.open(marker.get('map'), marker);
+      });
     });
   },
   componentDidMount: function(){
