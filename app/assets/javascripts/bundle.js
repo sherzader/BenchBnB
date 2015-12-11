@@ -26463,8 +26463,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
-	var BenchStore = __webpack_require__(166);
-	var ApiUtil = __webpack_require__(159);
 	var Map = __webpack_require__(185);
 	var Index = __webpack_require__(183);
 
@@ -26488,19 +26486,42 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(158);
 	var BenchStore = __webpack_require__(166);
 	var ApiUtil = __webpack_require__(159);
 
 	var Map = React.createClass({
 	  displayName: 'Map',
 
+	  getInitialState: function () {
+	    return { benches: BenchStore.all() };
+	  },
+	  _onChange: function () {
+	    var that = this;
+	    this.setState({ benches: BenchStore.all() });
+
+	    this.state.benches.forEach(function (bench) {
+	      debugger;
+	      var myLatlng = new google.maps.LatLng(bench.lat, bench.lng);
+	      var marker = new google.maps.Marker({
+	        position: myLatlng,
+	        title: 'Bench BnB!'
+	      });
+	      marker.setMap(that.map);
+	    });
+	  },
 	  componentDidMount: function () {
-	    var map = React.findDOMNode(this.refs.map);
+	    var map = ReactDOM.findDOMNode(this.refs.map);
 	    var mapOptions = {
 	      center: { lat: 37.7758, lng: -122.435 },
 	      zoom: 13
 	    };
 	    this.map = new google.maps.Map(map, mapOptions);
+
+	    this.mapChange = BenchStore.addListener(this._onChange);
+	  },
+	  componentWillUnmount: function () {
+	    this.mapChange.remove();
 	  },
 	  render: function () {
 	    return React.createElement('div', { className: 'map', ref: 'map' });
