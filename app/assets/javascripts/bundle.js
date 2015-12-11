@@ -46,11 +46,12 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
-	var ApiUtil = __webpack_require__(159);
 	var BenchStore = __webpack_require__(166);
+	var ApiUtil = __webpack_require__(159);
+	var Index = __webpack_require__(183);
 
 	document.addEventListener("DOMContentLoaded", function () {
-	  ReactDOM.render(React.createElement('div', null), document.getElementById('root'));
+	  ReactDOM.render(React.createElement(Index, null), document.getElementById('root'));
 	});
 
 /***/ },
@@ -19657,7 +19658,6 @@
 	  }
 	};
 
-	window.ApiUtil = ApiUtil;
 	module.exports = ApiUtil;
 
 /***/ },
@@ -20009,28 +20009,35 @@
 
 	var Store = __webpack_require__(167).Store;
 	var AppDispatcher = __webpack_require__(161);
-	var _benches = [];
 	var BenchStore = new Store(AppDispatcher);
 	var BenchConstants = __webpack_require__(165);
 
-	BenchStore.all = function () {
-	  return _benches.slice();
-	};
+	var _benches = {};
 
 	var resetBenches = function (benches) {
-	  _benches = benches;
+	  _benches = {};
+	  benches.forEach(function (bench) {
+	    _benches[bench.id] = bench;
+	  });
+	};
+
+	BenchStore.all = function () {
+	  var benches = [];
+	  for (var id in _benches) {
+	    benches.push(_benches[id]);
+	  }
+	  return benches;
 	};
 
 	BenchStore.__onDispatch = function (payload) {
 	  switch (payload.actionType) {
 	    case BenchConstants.BENCHES_RECEIVED:
 	      resetBenches(payload.benches);
-	      BenchStore._emitChange();
+	      this.__emitChange();
 	      break;
 	  }
 	};
 
-	window.BenchStore = BenchStore;
 	module.exports = BenchStore;
 
 /***/ },
@@ -26399,6 +26406,57 @@
 
 	module.exports = FluxMixinLegacy;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var BenchStore = __webpack_require__(166);
+	var ApiUtil = __webpack_require__(159);
+
+	var Index = React.createClass({
+	  displayName: 'Index',
+
+	  getInitialState: function () {
+	    return { benches: BenchStore.all() };
+	  },
+	  _onChange: function () {
+	    this.setState({ benches: BenchStore.all() });
+	  },
+	  componentDidMount: function () {
+	    this.benchListener = BenchStore.addListener(this._onChange);
+	    ApiUtil.fetchBenches();
+	  },
+	  componentWillUnmount: function () {
+	    this.benchListener.remove();
+	  },
+	  render: function () {
+	    var benches = this.state.benches.map(function (bench) {
+	      return React.createElement(
+	        'div',
+	        { className: 'bench', key: bench.id },
+	        React.createElement(
+	          'li',
+	          { key: bench.id },
+	          bench.description
+	        ),
+	        React.createElement('br', null),
+	        bench.lat,
+	        ', ',
+	        bench.lng,
+	        ' '
+	      );
+	    });
+	    return React.createElement(
+	      'div',
+	      null,
+	      benches
+	    );
+	  }
+	});
+
+	module.exports = Index;
 
 /***/ }
 /******/ ]);
