@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-core": "^6.3.17",
+    "babel-loader": "^6.2.0",
+    "babel-preset-react": "^6.3.13",
     "flux": "^2.1.1",
     "jquery": "^2.1.4",
     "react": "^0.14.3",
