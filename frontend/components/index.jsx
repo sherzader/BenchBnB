@@ -11,7 +11,7 @@ var Index = React.createClass({
   },
   componentDidMount: function () {
     this.benchListener = BenchStore.addListener(this._onChange);
-    ApiUtil.fetchBenches();
+    // ApiUtil.fetchBenches();
   },
   componentWillUnmount: function () {
     this.benchListener.remove();

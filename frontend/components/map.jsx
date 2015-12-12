@@ -17,28 +17,34 @@ var Map = React.createClass({
         position: myLatlng,
         title: 'Bench BnB!'
       });
+      var infowindow = new google.maps.InfoWindow({
+        content: "ELLO DER, CARE TO VISIT?!"
+      });
       marker.setMap(that.map);
       marker.addListener('click', function() {
         that.map.setZoom(15);
         that.map.setCenter(marker.getPosition());
-      });
-      var infowindow = new google.maps.InfoWindow({
-        content: "ELLO DER, CARE TO VISIT"
-      });
-
-      marker.addListener('click', function() {
         infowindow.open(marker.get('map'), marker);
       });
     });
   },
   componentDidMount: function(){
+    var that = this;
     var map = ReactDOM.findDOMNode(this.refs.map);
     var mapOptions = {
       center: {lat: 37.7758, lng: -122.435},
       zoom: 13
     };
     this.map = new google.maps.Map(map, mapOptions);
-
+    this.map.addListener('idle', function () {
+      var LatLngBounds = that.map.getBounds();
+      var ne = LatLngBounds.getNorthEast();
+      var sw = LatLngBounds.getSouthWest();
+      ApiUtil.fetchBenches({
+        "northEast" : { lat : ne.lat(), lng : ne.lng() },
+        "southWest" : { lat : sw.lat(), lng : sw.lng() }
+      });
+    });
     this.mapChange = BenchStore.addListener(this._onChange);
   },
   componentWillUnmount: function () {
