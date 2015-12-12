@@ -26,13 +26,16 @@ var Map = React.createClass({
         that.map.setCenter(marker.getPosition());
         infowindow.open(marker.get('map'), marker);
       });
+      marker.addListener('idle', function () {
+        marker.setMap(null);
+      });
     });
   },
   componentDidMount: function(){
     var that = this;
     var map = ReactDOM.findDOMNode(this.refs.map);
     var mapOptions = {
-      center: {lat: 37.7758, lng: -122.435},
+      center: { lat: 37.7758, lng: -122.435 },
       zoom: 13
     };
     this.map = new google.maps.Map(map, mapOptions);
@@ -51,9 +54,7 @@ var Map = React.createClass({
     this.mapChange.remove();
   },
   render: function () {
-    return(
-      <div className="map" ref="map"></div>
-    );
+    return(<div className="map" ref="map"></div>);
   }
 });
 

@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 benches = Bench.create([{
-                description: "COZYAZFUQ",
+                description: "COZYBENCH4U",
                 lat: 37.7804335,
                 lng: -122.4116771
                 }])

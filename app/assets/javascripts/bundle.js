@@ -26427,7 +26427,7 @@
 	  },
 	  componentDidMount: function () {
 	    this.benchListener = BenchStore.addListener(this._onChange);
-	    // ApiUtil.fetchBenches();
+	    // ApiUtil.fetchBenches() moved to Map component
 	  },
 	  componentWillUnmount: function () {
 	    this.benchListener.remove();
@@ -26442,7 +26442,7 @@
 	          { key: bench.id },
 	          bench.description
 	        ),
-	        React.createElement('br', null),
+	        'Coordinates:',
 	        bench.lat,
 	        ', ',
 	        bench.lng,
@@ -26515,6 +26515,9 @@
 	        that.map.setZoom(15);
 	        that.map.setCenter(marker.getPosition());
 	        infowindow.open(marker.get('map'), marker);
+	      });
+	      marker.addListener('idle', function () {
+	        marker.setMap(null);
 	      });
 	    });
 	  },
