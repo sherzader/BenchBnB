@@ -31342,7 +31342,9 @@
 	        bench.lat,
 	        ', ',
 	        bench.lng,
-	        ' '
+	        React.createElement('br', null),
+	        'Seating: ',
+	        bench.seating
 	      );
 	    });
 	    return React.createElement(

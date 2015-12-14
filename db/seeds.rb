@@ -9,15 +9,18 @@
 benches = Bench.create([{
                   description: "COZYBENCH4U",
                   lat: 37.7804335,
-                  lng: -122.4116771
+                  lng: -122.4116771,
+                  seating: 1
                 },
                 {
                   description: "FIDI Towers",
                   lat: 37.789967,
-                  lng: -122.396056
+                  lng: -122.396056,
+                  seating: 4
                 },
                 {
                   description: "Mission Retreat",
                   lat: 37.760133,
-                  lng: -122.428736
+                  lng: -122.428736,
+                  seating: 2
                 }])

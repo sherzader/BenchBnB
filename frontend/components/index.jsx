@@ -20,8 +20,9 @@ var Index = React.createClass({
     var benches = this.state.benches.map(function (bench) {
       return (<div className="bench" key={bench.id}>
               <li key={bench.id}>
-              {bench.description}</li>Coordinates: 
-              {bench.lat}, {bench.lng} </div>
+              {bench.description}</li>Coordinates:
+              {bench.lat}, {bench.lng}<br></br>
+              Seating: {bench.seating}</div>
               );
     });
     return(
