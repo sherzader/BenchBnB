@@ -5,6 +5,9 @@ class Api::BenchesController < ApplicationController
   end
 
   def create
+    bench_params[:lat] = bench_params[:lat].to_f
+    bench_params[:lng] = bench_params[:lng].to_f
+
     @bench = Bench.new(bench_params)
     @bench.save
   end

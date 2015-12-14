@@ -3,8 +3,9 @@ var Map = require('./map.jsx');
 var Index = require('./index.jsx');
 
 var Search = React.createClass({
-  clickMapHandler: function () {
-    this.props.history.pushState(null, "/benches/new", {});//this.props.location.query);
+  clickMapHandler: function (coords) {
+    this.props.history.pushState(null, "/benches/new",
+                                  coords);
   },
 
   render: function () {
@@ -16,6 +17,5 @@ var Search = React.createClass({
     );
   }
 });
-
 
 module.exports = Search;

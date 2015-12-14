@@ -42,8 +42,11 @@ var Map = React.createClass({
     };
     this.map = new google.maps.Map(map, mapOptions);
 
-    this.map.addListener('click', function () {
-      that.props.clickMapHandler();
+    this.map.addListener('click', function (e) {
+      var coords = {};
+      coords["lat"] = e.latLng.lat();
+      coords["lng"] = e.latLng.lng();
+      that.props.clickMapHandler(coords);
     });
 
     this.map.addListener('idle', function () {

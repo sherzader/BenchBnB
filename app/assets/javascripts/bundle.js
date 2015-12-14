@@ -31260,8 +31260,8 @@
 	var Search = React.createClass({
 	  displayName: 'Search',
 
-	  clickMapHandler: function () {
-	    this.props.history.pushState(null, "/benches/new", {}); //this.props.location.query);
+	  clickMapHandler: function (coords) {
+	    this.props.history.pushState(null, "/benches/new", coords);
 	  },
 
 	  render: function () {
@@ -31326,8 +31326,11 @@
 	    };
 	    this.map = new google.maps.Map(map, mapOptions);
 
-	    this.map.addListener('click', function () {
-	      that.props.clickMapHandler();
+	    this.map.addListener('click', function (e) {
+	      var coords = {};
+	      coords["lat"] = e.latLng.lat();
+	      coords["lng"] = e.latLng.lng();
+	      that.props.clickMapHandler(coords);
 	    });
 
 	    this.map.addListener('idle', function () {
@@ -31421,13 +31424,19 @@
 
 	  blankAttrs: {
 	    description: '',
-	    lat: 37.7791909,
-	    lng: -122.4189681,
+	    lat: '',
+	    lng: '',
 	    seating: 1
 	  },
 
 	  getInitialState: function () {
 	    return this.blankAttrs;
+	  },
+
+	  componentDidMount: function () {
+	    var lat = this.props.location.query.lat;
+	    var lng = this.props.location.query.lng;
+	    this.setState({ lat: lat, lng: lng });
 	  },
 
 	  createBench: function (e) {
@@ -31475,8 +31484,7 @@
 	          'Latitude:'
 	        ),
 	        React.createElement('input', {
-	          type: 'number',
-	          step: '0.000001',
+	          type: 'text',
 	          id: 'bench_lat',
 	          valueLink: this.linkState("lat")
 	        })
@@ -31490,8 +31498,7 @@
 	          'Longitude:'
 	        ),
 	        React.createElement('input', {
-	          type: 'number',
-	          step: '0.000001',
+	          type: 'text',
 	          id: 'bench_lng',
 	          valueLink: this.linkState("lng")
 	        })
