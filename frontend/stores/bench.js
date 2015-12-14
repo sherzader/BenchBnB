@@ -12,6 +12,10 @@ var resetBenches = function (benches) {
   });
 };
 
+var resetBench = function (bench) {
+  _benches[bench.id] = bench;
+};
+
 BenchStore.all = function () {
   var benches = [];
   for (var id in _benches){
@@ -26,6 +30,9 @@ BenchStore.__onDispatch = function (payload) {
     case BenchConstants.BENCHES_RECEIVED:
       resetBenches(payload.benches);
       this.__emitChange();
+      break;
+    case BenchConstants.BENCH_RECEIVED:
+      resetBench(payload.bench);
       break;
   }
 };
