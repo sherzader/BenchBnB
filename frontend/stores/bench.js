@@ -24,7 +24,6 @@ BenchStore.all = function () {
   return benches;
 };
 
-
 BenchStore.__onDispatch = function (payload) {
   switch(payload.actionType) {
     case BenchConstants.BENCHES_RECEIVED:
