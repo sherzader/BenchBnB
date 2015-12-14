@@ -31426,7 +31426,7 @@
 	    description: '',
 	    lat: '',
 	    lng: '',
-	    seating: 1
+	    seating: ''
 	  },
 
 	  getInitialState: function () {
@@ -31437,6 +31437,10 @@
 	    var lat = this.props.location.query.lat;
 	    var lng = this.props.location.query.lng;
 	    this.setState({ lat: lat, lng: lng });
+	  },
+
+	  handleChange: function (e) {
+	    this.setState({ seating: e.target.value });
 	  },
 
 	  createBench: function (e) {
@@ -31513,7 +31517,7 @@
 	        ),
 	        React.createElement(
 	          'select',
-	          { name: 'bench_seating' },
+	          { name: 'bench_seating', onChange: this.handleChange },
 	          options
 	        )
 	      ),

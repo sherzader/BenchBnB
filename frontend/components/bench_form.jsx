@@ -10,7 +10,7 @@ var BenchForm = React.createClass({
     description: '',
     lat: '',
     lng: '',
-    seating: 1,
+    seating: '',
   },
 
   getInitialState: function () {
@@ -21,6 +21,10 @@ var BenchForm = React.createClass({
     var lat = this.props.location.query.lat;
     var lng = this.props.location.query.lng;
     this.setState({lat: lat, lng: lng});
+  },
+
+  handleChange: function (e) {
+    this.setState({seating: e.target.value});
   },
 
   createBench: function (e) {
@@ -70,7 +74,7 @@ var BenchForm = React.createClass({
 
         <div>
           <label htmlFor='bench_seating'>Seating: </label>
-          <select name='bench_seating'>
+          <select name='bench_seating' onChange={this.handleChange}>
             {options}
           </select>
         </div>
