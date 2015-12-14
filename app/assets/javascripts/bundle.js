@@ -86,7 +86,11 @@
 
 	document.addEventListener("DOMContentLoaded", function () {
 	  var root = document.getElementById('root');
-	  ReactDOM.render(routes, root);
+	  ReactDOM.render(React.createElement(
+	    Router,
+	    null,
+	    routes
+	  ), root);
 	});
 
 /***/ },

@@ -4,6 +4,11 @@ class Api::BenchesController < ApplicationController
     render json: @benches
   end
 
+  def new
+    @bench = Bench.new(bench_params)
+    render json: @bench
+  end
+
   def create
     @bench = Bench.new(bench_params)
     @bench.save
