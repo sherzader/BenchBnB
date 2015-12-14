@@ -39,9 +39,7 @@ var BenchForm = React.createClass({
   render: function () {
     var options = [];
     for (var i = 1; i <= 10; i++){
-      options.push(<option key={i}
-                           valueLink={this.linkState("seating")}>
-                           {i}</option>);
+      options.push(<option key={i}>{i}</option>);
     }
     return(
       <form className='new-bench' onSubmit={this.createBench}>

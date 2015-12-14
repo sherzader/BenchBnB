@@ -31457,8 +31457,7 @@
 	    for (var i = 1; i <= 10; i++) {
 	      options.push(React.createElement(
 	        'option',
-	        { key: i,
-	          valueLink: this.linkState("seating") },
+	        { key: i },
 	        i
 	      ));
 	    }
