@@ -24466,8 +24466,8 @@
 	  });
 	};
 
-	var resetBench = function (bench) {
-	  _benches[bench.id] = bench;
+	var addBench = function (bench) {
+	  _benches[bench.id].push(bench);
 	};
 
 	BenchStore.all = function () {
@@ -24485,7 +24485,8 @@
 	      this.__emitChange();
 	      break;
 	    case BenchConstants.BENCH_RECEIVED:
-	      resetBench(payload.bench);
+	      addBench(payload.bench);
+	      this.__emitChange();
 	      break;
 	  }
 	};
@@ -31216,7 +31217,7 @@
 	      data: { bench: bench },
 	      success: function (b) {
 	        ApiActions.receiveBench(b);
-	        callback && callback(b.id);
+	        callback();
 	      }
 	    });
 	  }
@@ -31408,9 +31409,9 @@
 
 	  blankAttrs: {
 	    description: '',
-	    lat: '',
-	    lng: '',
-	    seating: ''
+	    lat: 37.7791909,
+	    lng: -122.4189681,
+	    seating: 1
 	  },
 
 	  getInitialState: function () {
@@ -31419,7 +31420,7 @@
 
 	  createBench: function (e) {
 	    e.preventDefault();
-	    var bench = {};
+	    var bench = this.state;
 
 	    ApiUtil.createBench(bench, (function (id) {
 	      this.history.pushState(null, "/benches/" + id, {});
@@ -31427,6 +31428,15 @@
 	    this.setState(this.blankAttrs);
 	  },
 	  render: function () {
+	    var options = [];
+	    for (var i = 1; i <= 10; i++) {
+	      options.push(React.createElement(
+	        'option',
+	        { key: i,
+	          valueLink: this.linkState("seating") },
+	        i
+	      ));
+	    }
 	    return React.createElement(
 	      'form',
 	      { className: 'new-bench', onSubmit: this.createBench },
@@ -31485,36 +31495,7 @@
 	        React.createElement(
 	          'select',
 	          { name: 'bench_seating' },
-	          React.createElement(
-	            'option',
-	            { value: '1', valueLink: this.linkState("seating") },
-	            '1'
-	          ),
-	          React.createElement(
-	            'option',
-	            { value: '2', valueLink: this.linkState("seating") },
-	            '2'
-	          ),
-	          React.createElement(
-	            'option',
-	            { value: '3', valueLink: this.linkState("seating") },
-	            '3'
-	          ),
-	          React.createElement(
-	            'option',
-	            { value: '4', valueLink: this.linkState("seating") },
-	            '4'
-	          ),
-	          React.createElement(
-	            'option',
-	            { value: '5', valueLink: this.linkState("seating") },
-	            '5'
-	          ),
-	          React.createElement(
-	            'option',
-	            { value: '10', valueLink: this.linkState("seating") },
-	            '10'
-	          )
+	          options
 	        )
 	      ),
 	      React.createElement(

@@ -8,9 +8,9 @@ var BenchForm = React.createClass({
 
   blankAttrs: {
     description: '',
-    lat: '',
-    lng: '',
-    seating: '',
+    lat: 37.7791909,
+    lng: -122.4189681,
+    seating: 1,
   },
 
   getInitialState: function () {
@@ -19,7 +19,7 @@ var BenchForm = React.createClass({
 
   createBench: function (e) {
     e.preventDefault();
-    var bench = {};
+    var bench = this.state;
 
     ApiUtil.createBench(bench, function (id) {
       this.history.pushState(null, "/benches/" + id, {});
@@ -27,6 +27,12 @@ var BenchForm = React.createClass({
     this.setState(this.blankAttrs);
   },
   render: function () {
+    var options = [];
+    for (var i = 1; i <= 10; i++){
+      options.push(<option key={i}
+                           valueLink={this.linkState("seating")}>
+                           {i}</option>);
+    }
     return(
       <form className='new-bench' onSubmit={this.createBench}>
         <div>
@@ -61,12 +67,7 @@ var BenchForm = React.createClass({
         <div>
           <label htmlFor='bench_seating'>Seating: </label>
           <select name='bench_seating'>
-            <option value='1' valueLink={this.linkState("seating")}>1</option>
-            <option value='2' valueLink={this.linkState("seating")}>2</option>
-            <option value='3' valueLink={this.linkState("seating")}>3</option>
-            <option value='4' valueLink={this.linkState("seating")}>4</option>
-            <option value='5' valueLink={this.linkState("seating")}>5</option>
-            <option value='10' valueLink={this.linkState("seating")}>10</option>
+            {options}
           </select>
         </div>
 

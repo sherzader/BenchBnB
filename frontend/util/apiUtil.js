@@ -25,7 +25,7 @@ var ApiUtil = {
       data: {bench: bench},
       success: function (b) {
         ApiActions.receiveBench(b);
-        callback && callback(b.id);
+        callback();
       }
     });
   }

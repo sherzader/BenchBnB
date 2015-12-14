@@ -12,8 +12,8 @@ var resetBenches = function (benches) {
   });
 };
 
-var resetBench = function (bench) {
-  _benches[bench.id] = bench;
+var addBench = function (bench) {
+  _benches[bench.id].push(bench);
 };
 
 BenchStore.all = function () {
@@ -31,7 +31,8 @@ BenchStore.__onDispatch = function (payload) {
       this.__emitChange();
       break;
     case BenchConstants.BENCH_RECEIVED:
-      resetBench(payload.bench);
+      addBench(payload.bench);
+      this.__emitChange();
       break;
   }
 };
