@@ -21,13 +21,12 @@ var Map = React.createClass({
         content: "ELLO DER, CARE TO VISIT?!"
       });
       marker.setMap(that.map);
+      var streetview = that.map.getStreetView();
       marker.addListener('click', function() {
-        that.map.setZoom(15);
-        that.map.setCenter(marker.getPosition());
         infowindow.open(marker.get('map'), marker);
-      });
-      marker.addListener('idle', function () {
-        marker.setMap(null);
+        streetview.setPosition(marker.position);
+        streetview.setVisible(true);
+        // that.map.setCenter(marker.getPosition());
       });
     });
   },
