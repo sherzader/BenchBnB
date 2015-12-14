@@ -31260,11 +31260,15 @@
 	var Search = React.createClass({
 	  displayName: 'Search',
 
+	  clickMapHandler: function () {
+	    this.props.history.pushState(null, "/benches/new", {}); //this.props.location.query);
+	  },
+
 	  render: function () {
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(Map, null),
+	      React.createElement(Map, { clickMapHandler: this.clickMapHandler }),
 	      React.createElement(Index, null)
 	    );
 	  }
@@ -31280,9 +31284,12 @@
 	var ReactDOM = __webpack_require__(158);
 	var BenchStore = __webpack_require__(210);
 	var ApiUtil = __webpack_require__(232);
+	var History = __webpack_require__(159).History;
 
 	var Map = React.createClass({
 	  displayName: 'Map',
+
+	  mixins: [History],
 
 	  getInitialState: function () {
 	    return { benches: BenchStore.all() };
@@ -31318,6 +31325,11 @@
 	      zoom: 13
 	    };
 	    this.map = new google.maps.Map(map, mapOptions);
+
+	    this.map.addListener('click', function () {
+	      that.props.clickMapHandler();
+	    });
+
 	    this.map.addListener('idle', function () {
 	      var LatLngBounds = that.map.getBounds();
 	      var ne = LatLngBounds.getNorthEast();
@@ -31327,6 +31339,7 @@
 	        "southWest": { lat: sw.lat(), lng: sw.lng() }
 	      });
 	    });
+
 	    this.mapChange = BenchStore.addListener(this._onChange);
 	  },
 	  componentWillUnmount: function () {

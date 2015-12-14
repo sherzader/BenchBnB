@@ -2,8 +2,11 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var BenchStore = require('../stores/bench');
 var ApiUtil = require('../util/apiUtil');
+var History = require('react-router').History;
 
 var Map = React.createClass({
+  mixins: [History],
+
   getInitialState: function () {
     return ({ benches: BenchStore.all() });
   },
@@ -38,6 +41,11 @@ var Map = React.createClass({
       zoom: 13
     };
     this.map = new google.maps.Map(map, mapOptions);
+
+    this.map.addListener('click', function () {
+      that.props.clickMapHandler();
+    });
+
     this.map.addListener('idle', function () {
       var LatLngBounds = that.map.getBounds();
       var ne = LatLngBounds.getNorthEast();
@@ -47,6 +55,7 @@ var Map = React.createClass({
         "southWest" : { lat : sw.lat(), lng : sw.lng() }
       });
     });
+
     this.mapChange = BenchStore.addListener(this._onChange);
   },
   componentWillUnmount: function () {
