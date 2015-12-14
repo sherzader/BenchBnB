@@ -31453,7 +31453,8 @@
 	          'Latitude:'
 	        ),
 	        React.createElement('input', {
-	          type: 'text',
+	          type: 'number',
+	          step: '0.000001',
 	          id: 'bench_lat',
 	          valueLink: this.linkState("lat")
 	        })
@@ -31467,7 +31468,8 @@
 	          'Longitude:'
 	        ),
 	        React.createElement('input', {
-	          type: 'text',
+	          type: 'number',
+	          step: '0.000001',
 	          id: 'bench_lng',
 	          valueLink: this.linkState("lng")
 	        })
@@ -31478,13 +31480,42 @@
 	        React.createElement(
 	          'label',
 	          { htmlFor: 'bench_seating' },
-	          'Seating:'
+	          'Seating: '
 	        ),
-	        React.createElement('input', {
-	          type: 'text',
-	          id: 'bench_seating',
-	          valueLink: this.linkState("seating")
-	        })
+	        React.createElement(
+	          'select',
+	          { name: 'bench_seating' },
+	          React.createElement(
+	            'option',
+	            { value: '1', valueLink: this.linkState("seating") },
+	            '1'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '2', valueLink: this.linkState("seating") },
+	            '2'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '3', valueLink: this.linkState("seating") },
+	            '3'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '4', valueLink: this.linkState("seating") },
+	            '4'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '5', valueLink: this.linkState("seating") },
+	            '5'
+	          ),
+	          React.createElement(
+	            'option',
+	            { value: '10', valueLink: this.linkState("seating") },
+	            '10'
+	          )
+	        )
 	      ),
 	      React.createElement(
 	        'button',

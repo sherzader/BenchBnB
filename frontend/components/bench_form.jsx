@@ -41,7 +41,8 @@ var BenchForm = React.createClass({
         <div>
           <label htmlFor='bench_lat'>Latitude:</label>
           <input
-            type='text'
+            type='number'
+            step='0.000001'
             id='bench_lat'
             valueLink={this.linkState("lat")}
           />
@@ -50,19 +51,23 @@ var BenchForm = React.createClass({
         <div>
           <label htmlFor='bench_lng'>Longitude:</label>
           <input
-            type='text'
+            type='number'
+            step='0.000001'
             id='bench_lng'
             valueLink={this.linkState("lng")}
           />
         </div>
 
         <div>
-          <label htmlFor='bench_seating'>Seating:</label>
-          <input
-            type='text'
-            id='bench_seating'
-            valueLink={this.linkState("seating")}
-          />
+          <label htmlFor='bench_seating'>Seating: </label>
+          <select name='bench_seating'>
+            <option value='1' valueLink={this.linkState("seating")}>1</option>
+            <option value='2' valueLink={this.linkState("seating")}>2</option>
+            <option value='3' valueLink={this.linkState("seating")}>3</option>
+            <option value='4' valueLink={this.linkState("seating")}>4</option>
+            <option value='5' valueLink={this.linkState("seating")}>5</option>
+            <option value='10' valueLink={this.linkState("seating")}>10</option>
+          </select>
         </div>
 
         <button>Create Bench</button>
