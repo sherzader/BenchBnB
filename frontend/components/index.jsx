@@ -1,6 +1,6 @@
 var React = require('react');
 var BenchStore = require('../stores/bench');
-var ApiUtil = require('../util/apiUtil');
+// var ApiUtil = require('../util/apiUtil');
 
 var Index = React.createClass({
   getInitialState: function () {
