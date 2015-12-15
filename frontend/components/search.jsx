@@ -7,7 +7,6 @@ var Search = React.createClass({
     this.props.history.pushState(null, "/benches/new",
                                   coords);
   },
-
   render: function () {
     return(
       <div>

@@ -25,3 +25,7 @@ body {
   height: 300px;
   overflow: scroll;
 }
+
+li {
+  list-style:none;
+}

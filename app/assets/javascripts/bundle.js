@@ -52,7 +52,8 @@
 	    BenchStore = __webpack_require__(210),
 	    ApiUtil = __webpack_require__(232),
 	    Search = __webpack_require__(234),
-	    BenchForm = __webpack_require__(237);
+	    BenchForm = __webpack_require__(237),
+	    Show = __webpack_require__(242);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -82,7 +83,8 @@
 	    Route,
 	    { path: '/', component: App },
 	    React.createElement(IndexRoute, { component: Search }),
-	    React.createElement(Route, { path: 'benches/new', component: BenchForm })
+	    React.createElement(Route, { path: 'benches/new', component: BenchForm }),
+	    React.createElement(Route, { path: 'benches/:benchId', component: Show })
 	  )
 	);
 
@@ -31263,7 +31265,6 @@
 	  clickMapHandler: function (coords) {
 	    this.props.history.pushState(null, "/benches/new", coords);
 	  },
-
 	  render: function () {
 	    return React.createElement(
 	      'div',
@@ -31383,17 +31384,14 @@
 	    var benches = this.state.benches.map(function (bench) {
 	      return React.createElement(
 	        'div',
-	        { className: 'bench', key: bench.id },
+	        { className: 'bench', key: bench.id + 1 },
+	        React.createElement('br', null),
+	        React.createElement('br', null),
 	        React.createElement(
 	          'li',
-	          { key: bench.id + 1 },
+	          { key: bench.id },
 	          bench.description
 	        ),
-	        'Coordinates:',
-	        bench.lat,
-	        ', ',
-	        bench.lng,
-	        React.createElement('br', null),
 	        'Seating: ',
 	        bench.seating
 	      );
@@ -31762,6 +31760,32 @@
 	};
 
 	module.exports = ReactStateSetters;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React = __webpack_require__(1);
+	var BenchStore = __webpack_require__(210);
+	var ApiUtil = __webpack_require__(232);
+	var Map = __webpack_require__(235);
+
+	var Show = React.createClass({
+	  displayName: 'Show',
+
+	  getInitialState: function () {
+	    return { bench: BenchStore.fetchBench(this.props.params) };
+	  },
+	  render: function () {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(Map, { bench: this.state.bench })
+	    );
+	  }
+	});
+
+	module.exports = Show;
 
 /***/ }
 /******/ ]);

@@ -6,7 +6,8 @@ var React = require('react'),
     BenchStore = require('./stores/bench'),
     ApiUtil = require('./util/apiUtil'),
     Search = require('./components/search.jsx'),
-    BenchForm = require('./components/bench_form.jsx');
+    BenchForm = require('./components/bench_form.jsx'),
+    Show = require('./components/show.jsx');
 
 var App = React.createClass({
   render: function () {
@@ -24,6 +25,7 @@ var routes = (
     <Route path="/" component={App}>
       <IndexRoute component={Search}></IndexRoute>
       <Route path="benches/new" component={BenchForm} />
+      <Route path="benches/:benchId" component={Show} />
     </Route>
   </Router>
 );
