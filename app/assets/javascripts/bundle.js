@@ -31400,7 +31400,7 @@
 	    });
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'index' },
 	      benches
 	    );
 	  }
