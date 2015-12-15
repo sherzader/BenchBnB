@@ -23,7 +23,7 @@ var routes = (
   <Router>
     <Route path="/" component={App}>
       <IndexRoute component={Search}></IndexRoute>
-      <Route path="/benches/new" component={BenchForm} />
+      <Route path="benches/new" component={BenchForm} />
     </Route>
   </Router>
 );

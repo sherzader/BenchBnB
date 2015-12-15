@@ -8,9 +8,13 @@ class Api::BenchesController < ApplicationController
     bench_params[:lat] = bench_params[:lat].to_f
     bench_params[:lng] = bench_params[:lng].to_f
     bench_params[:seating] = bench_params[:seating].to_i
-    
+
     @bench = Bench.new(bench_params)
-    @bench.save
+    if @bench.save
+      render :index
+    else
+      render json: @bench.errors.full_messages, status: 422
+    end
   end
 
   private

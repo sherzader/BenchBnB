@@ -4,7 +4,7 @@ var History = require('react-router').History;
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var BenchForm = React.createClass({
-  mixins: [LinkedStateMixin, History],
+  mixins: [LinkedStateMixin],
 
   blankAttrs: {
     description: '',
@@ -31,15 +31,16 @@ var BenchForm = React.createClass({
     e.preventDefault();
     var bench = this.state;
 
-    ApiUtil.createBench(bench, function (id) {
-      this.history.pushState(null, "/benches/" + id, {});
+    ApiUtil.createBench(bench, function () {
+      this.props.history.push("/");
     }.bind(this));
     this.setState(this.blankAttrs);
   },
+
   render: function () {
     var options = [];
     for (var i = 1; i <= 10; i++){
-      options.push(<option key={i}>{i}</option>);
+      options.push(<option key={i} value={i}>{i}</option>);
     }
     return(
       <form className='new-bench' onSubmit={this.createBench}>

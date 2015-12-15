@@ -82,7 +82,7 @@
 	    Route,
 	    { path: '/', component: App },
 	    React.createElement(IndexRoute, { component: Search }),
-	    React.createElement(Route, { path: '/benches/new', component: BenchForm })
+	    React.createElement(Route, { path: 'benches/new', component: BenchForm })
 	  )
 	);
 
@@ -24467,7 +24467,7 @@
 	};
 
 	var addBench = function (bench) {
-	  _benches[bench.id].push(bench);
+	  _benches[bench.id] = bench;
 	};
 
 	BenchStore.all = function () {
@@ -31386,7 +31386,7 @@
 	        { className: 'bench', key: bench.id },
 	        React.createElement(
 	          'li',
-	          { key: bench.id },
+	          { key: bench.id + 1 },
 	          bench.description
 	        ),
 	        'Coordinates:',
@@ -31420,7 +31420,7 @@
 	var BenchForm = React.createClass({
 	  displayName: 'BenchForm',
 
-	  mixins: [LinkedStateMixin, History],
+	  mixins: [LinkedStateMixin],
 
 	  blankAttrs: {
 	    description: '',
@@ -31447,17 +31447,18 @@
 	    e.preventDefault();
 	    var bench = this.state;
 
-	    ApiUtil.createBench(bench, (function (id) {
-	      this.history.pushState(null, "/benches/" + id, {});
+	    ApiUtil.createBench(bench, (function () {
+	      this.props.history.push("/");
 	    }).bind(this));
 	    this.setState(this.blankAttrs);
 	  },
+
 	  render: function () {
 	    var options = [];
 	    for (var i = 1; i <= 10; i++) {
 	      options.push(React.createElement(
 	        'option',
-	        { key: i },
+	        { key: i, value: i },
 	        i
 	      ));
 	    }

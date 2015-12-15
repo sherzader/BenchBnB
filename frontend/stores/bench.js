@@ -13,7 +13,7 @@ var resetBenches = function (benches) {
 };
 
 var addBench = function (bench) {
-  _benches[bench.id].push(bench);
+  _benches[bench.id] = bench;
 };
 
 BenchStore.all = function () {
